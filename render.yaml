@@ -1,0 +1,22 @@
+# Deployment blueprint; DO NOT apply until billing and database are approved.
+services:
+  - type: web
+    name: brighton-test-web
+    runtime: python
+    plan: starter
+    region: frankfurt
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 2 app:app
+    healthCheckPath: /health
+    autoDeployTrigger: off
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: SESSION_COOKIE_SECURE
+        value: "1"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false
+# PostgreSQL is deliberately not provisioned in this file.
+# Create a paid database only after explicit confirmation of price and plan.

@@ -1,0 +1,1 @@
+const key="brighton_ui_theme";if(localStorage.getItem(key)==="dark")document.body.classList.add("dark");document.getElementById("theme")?.addEventListener("click",()=>{document.body.classList.toggle("dark");localStorage.setItem(key,document.body.classList.contains("dark")?"dark":"light")});
